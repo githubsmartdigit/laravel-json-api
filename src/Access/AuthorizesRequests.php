@@ -17,6 +17,8 @@
 
 namespace Xooxx\Laravel\JsonApi\Access;
 
+use \Xooxx\Laravel\Access\Contracts;
+
 trait AuthorizesRequests
 {
     /**

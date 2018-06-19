@@ -10,7 +10,6 @@
  */
 namespace Xooxx\Laravel\JsonApi\Providers;
 
-use \Cache;
 use Xooxx\JsonApi\JsonApiTransformer;
 use Xooxx\Api\Mapping\Mapping;
 use Xooxx\Laravel\JsonApi\JsonApiSerializer;
@@ -29,13 +28,16 @@ class Laravel4Provider
     {
         return function ($app) use ($transformers) {
 
-            /**@var \Config $config */
+            /**@var \Illuminate\Config\Repository $config */
             $config = $app['config'];
+
+            /**@var \Illuminate\Cache\Repository $cache */
+            $cache = $app['cache'];
 
             if ($config->get('app.debug')) {
                 $parsedRoutes = $this->parseRoutes(new Mapper($transformers));
             } else {
-                $parsedRoutes = Cache::rememberForever('api20.mapping', function () use($app, $config, $transformers) {
+                $parsedRoutes = $cache->rememberForever('api20.mapping', function () use($app, $config, $transformers) {
                     return $this->parseRoutes(new Mapper($transformers));
                 });
             }

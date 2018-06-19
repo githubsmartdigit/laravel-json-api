@@ -1,23 +1,32 @@
 {
-    "name": "xooxx/laravel-json-api",
-    "description": "Laravel JSON API Transformer",
-    "type": "library",
-    "require": {
-        "xooxx/json-api": "^1.0",
-        "xooxx/serializer-eloquent": "^1.0",
-        "xooxx/laravel-gate": "^1.0",
-        "symfony/psr-http-message-bridge": "^1.0"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "xooxx",
-            "email": "xooxx.dev@gmail.com"
-        }
-    ],
-    "autoload": {
-      "psr-4": {
-        "Xooxx\\Laravel\\JsonApi\\": "src/"
-      }
+  "name": "xooxx/laravel-json-api",
+  "description": "Laravel JSON API Transformer",
+  "type": "library",
+  "require": {
+    "xooxx/json-api": "^1.0",
+    "xooxx/laravel-gate": "^1.0",
+    "xooxx/serializer-eloquent": "^1.0",
+    "symfony/psr-http-message-bridge": "^1.0",
+    "illuminate/cache": ">=4.2",
+    "illuminate/support": ">=4.2",
+    "illuminate/config": ">=4.2",
+    "illuminate/routing": ">=4.2",
+    "illuminate/container": ">=4.2",
+    "php": ">=5.6"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "xooxx",
+      "email": "xooxx.dev@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Xooxx\\Laravel\\JsonApi\\": "src/"
+    },
+    "files": [
+      "helpers.php"
+    ]
+  }
 }

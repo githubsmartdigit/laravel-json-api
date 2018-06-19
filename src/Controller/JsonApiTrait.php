@@ -21,7 +21,6 @@ use Xooxx\JsonApi\Server\Errors\ErrorBag;
 use Xooxx\Laravel\JsonApi\Eloquent\EloquentHelper;
 use Xooxx\Laravel\JsonApi\JsonApiSerializer;
 use Symfony\Component\HttpFoundation\Response;
-use URL;
 
 trait JsonApiTrait
 {
@@ -47,7 +46,9 @@ trait JsonApiTrait
      */
     protected function uriGenerator($controllerAction)
     {
-        return  URL::action($controllerAction, [], true);
+        /** @var  \Illuminate\Routing\UrlGenerator $url */
+        $url = app('url');
+        return $url->action($controllerAction, [], true);
     }
     /**
      * Returns the total number of results available for the current resource.

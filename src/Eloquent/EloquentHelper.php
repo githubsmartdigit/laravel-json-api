@@ -10,7 +10,6 @@
  */
 namespace Xooxx\Laravel\JsonApi\Eloquent;
 
-use DB;
 use Illuminate\Database\Eloquent\Builder;
 use Xooxx\JsonApi\Http\Factory\RequestFactory;
 use Xooxx\Laravel\JsonApi\JsonApiSerializer;
@@ -48,7 +47,10 @@ trait EloquentHelper
     {
         self::sort($serializer, $builder, $builder->getModel());
         $request = RequestFactory::create();
-        DB::getPaginator()->setCurrentPage($request->getPage()->number());
+
+        /** @var \Illuminate\Database\DatabaseManager | \Illuminate\Database\Connection $db */
+        $db = app('db');
+        $db->getPaginator()->setCurrentPage($request->getPage()->number());
         $builder->paginate($request->getPage()->size() ?: $pageSize, self::columns($serializer, $request->getFields()->get()));
         return $builder;
     }
@@ -64,7 +66,6 @@ trait EloquentHelper
     protected static function sort(JsonApiSerializer $serializer, Builder $builder, Model $model)
     {
         /**@var \Illuminate\Database\Query\Builder | \Illuminate\Database\Eloquent\Builder  $builder */
-
         $mapping = $serializer->getTransformer()->getMappingByClassName(get_class($model));
         $sorts = RequestFactory::create()->getSort()->sorting();
         if (!empty($sorts)) {
