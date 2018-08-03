@@ -36,7 +36,7 @@ class MappingFactory extends \Xooxx\Api\Mapping\MappingFactory
             $reflection = new ReflectionClass($className);
             $value = $reflection->newInstanceWithoutConstructor();
             if (\is_subclass_of($value, Model::class, true)) {
-                $attributes = \DB::connection()->getSchemaBuilder()->getColumnListing($value->getTable()); //Schema::
+                $attributes = $value->getConnection()->getSchemaBuilder()->getColumnListing($value->getTable()); //Schema::
                 self::$eloquentClasses[$className] = $attributes;
             }
         }
